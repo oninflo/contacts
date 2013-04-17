@@ -42,9 +42,9 @@ if (!isset($_SESSION['user_id'])) {
         }elseif($_GET['page']=='add'){
             
             $toView = array(
-                'variable' => 'nincs fassz');
+                'variable' => 'nothing to write');
             if($_POST){
-                $toView = array('variable' => 'fassz');
+                $toView = array('variable' => 'something to write');
             }
             
             $view = new View('add',$toView);
