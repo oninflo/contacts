@@ -1,0 +1,75 @@
+body{
+    text-align: left;
+    font-family: Arial, Helvetica;
+}
+
+div{
+    width: 300px;
+    margin-top: 5px;
+    padding: 5px;
+    background: #a4b357;
+    background: -moz-linear-gradient(top, #D9FFFC 0%, #FFFFFF 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9FFFC), color-stop(100%,#7FFFFFF));
+    background: -webkit-linear-gradient(top, #D9FFFC 0%,#FFFFFF 100%);
+    background: -o-linear-gradient(top, #D9FFFC 0%,#FFFFFF 100%);
+    background: -ms-linear-gradient(top, #D9FFFC 0%,#FFFFFF 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4b357', endColorstr='#75890c',GradientType=0 );
+    background: linear-gradient(top, #a4b357 0%,#FFFFFF 100%);
+    border: 1px solid green;
+    border-radius:10px;
+}
+
+ul{
+    border-radius:10px;
+}
+
+li{
+    display: inline;
+}
+
+table{
+    border: 0px;
+}
+
+td{
+    text-align: left;
+}
+
+td.ajax{
+    margin-left: 50px;
+    padding-left: 50px;
+}
+
+input{
+    padding: 5px;
+    border: 1px solid #96a641;
+    border-radius:10px;
+}
+
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus{
+  color: #000;
+  border: 0px;
+}
+
+input[type=submit]{
+    background: #a4b357;
+    background: -moz-linear-gradient(top, #a4b357 0%, #75890c 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a4b357), color-stop(100%,#75890c));
+    background: -webkit-linear-gradient(top, #a4b357 0%,#75890c 100%);
+    background: -o-linear-gradient(top, #a4b357 0%,#75890c 100%);
+    background: -ms-linear-gradient(top, #a4b357 0%,#75890c 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4b357', endColorstr='#75890c',GradientType=0 );
+    background: linear-gradient(top, #a4b357 0%,#75890c 100%);
+    margin-top: 10px;
+    padding: 5px;
+    border: 1px solid lightblue;
+}
+
+a{
+    color: darkgreen;
+    text-decoration: none;
+}
+
+font{
+    color: darkblue;
+}
