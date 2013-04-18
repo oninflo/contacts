@@ -1,8 +1,9 @@
-<!--<script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function() {
    $('td.ajax').load('templates/addForm.php');
  });    
-</script>-->
+</script>
+
 <a href="logout.php">Kijelentkezés(<?php echo $_SESSION['uname']; ?>)</a>
 <h1>Főoldal</h1>
 <br />            

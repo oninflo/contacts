@@ -122,6 +122,9 @@ if (!isset($_SESSION['user_id'])) {
                 $view = new View('delete',$toView);
                 echo $view;
 
+        }else{
+                $view = new View('error');
+                echo $view;         
         }
         
 
