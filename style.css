@@ -73,3 +73,9 @@ a{
 font{
     color: darkblue;
 }
+
+a.menu{
+    color: #919191;
+    font-size: 12pt;
+    text-decoration: none;
+}

@@ -4,9 +4,9 @@
 <br />
 
 <?php
+echo ($msg!='')?$msg.'<br /><br />':'';
+
 require_once 'addForm.php';
 ?>
-
-<?php
-echo $variable;
-?>
+<br /><br />
+<a href="index.php">Vissza a kezdőoldalra</a>

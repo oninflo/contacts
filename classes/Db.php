@@ -147,24 +147,32 @@ class Db{
         }        
     }   
     
-    public function addContact($lname, $fname, $mail){
+    public function addContact($lname, $fname, $mail, $numbers){
         $connection = $this->connection;
         $sql = "INSERT INTO contacts(
-                lname, 
-                fname,
+                user_id,
+                fname, 
+                lname,
                 mail) 
-                VALUES (?,?,?);";
+                VALUES (?,?,?,?);";
         $stmt = $connection->prepare($sql);
-        $stmt->bind_param( "sss", $lname, $fname, $mail); 
+        $stmt->bind_param( "ssss", $_SESSION['user_id'], $fname, $lname, $mail); 
         if($stmt->execute()){
             $id = mysqli_insert_id($connection);
-            $stmt->close();    
-            return $id;
+            $stmt->close();
+            foreach ($numbers as $number){
+                $this->addNumbers($id, $number);
+            }
+            return true;
         }
         return false;        
     }
     
     public function addNumbers($id, $num){
+        $myContactArr = $this->getOwnContactIds($_SESSION['user_id']);
+        if(!in_array($id, $myContactArr)){
+            return false;
+        }
         $connection = $this->connection;
         $sql = "INSERT INTO contact_phones(
                 contact_id, 
@@ -179,11 +187,50 @@ class Db{
         return false;         
     }
     
-    public function removeContact($uid){
+    public function delNumbers($id){
         $connection = $this->connection;
-        $sql = "DELETE FROM contacts WHERE user_id = ?;";
+        $sql = "DELETE FROM contact_phones WHERE contact_id = ?;";
         $stmt = $connection->prepare($sql);
-        $stmt->bind_param( "s", $uid); 
+        $stmt->bind_param( "s", $id); 
+        if($stmt->execute()){
+            $stmt->close();    
+            return true;
+        }
+        return false;       
+    }
+
+    public function editContact($lname, $fname, $mail, $numbers, $cid){
+        $connection = $this->connection;
+        $sql = "UPDATE contacts 
+                SET 
+                    fname = ?,
+                    lname = ?,
+                    mail = ?
+                WHERE id = ?
+                AND user_id = ?;";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param( "sssss", $fname, $lname, $mail, $cid, $_SESSION['user_id']); 
+        if($stmt->execute()){
+            $id = mysqli_insert_id($connection);
+            $stmt->close();
+
+                $this->delNumbers($cid);
+                foreach ($numbers as $number){
+                    if($number!=''){
+                       $this->addNumbers($cid, $number); 
+                    }                    
+                }                
+            
+            return true;
+        }
+        return false;        
+    }    
+    
+    public function removeContact($id){
+        $connection = $this->connection;
+        $sql = "DELETE FROM contacts WHERE id = ? AND user_id = ?;";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param( "ss", $id, $_SESSION['user_id']); 
         if($stmt->execute()){
             $stmt->close();    
             return true;
@@ -201,7 +248,6 @@ class Db{
            LEFT JOIN contact_phones ON contacts.id = contact_phones.contact_id
            WHERE contacts.user_id = ?
            ");
-
 
         $stmt->bind_param( "s", $uid); 
         if(!$stmt->execute()){
@@ -225,6 +271,69 @@ class Db{
             return $result;
                       
         }          
-    }   
+    }
+    
+    public function getOwnContactIds($uid){
+        $connection = $this->connection;
+        $stmt = $connection->prepare(
+          "SELECT id FROM contacts WHERE contacts.user_id = ?
+           ");
+
+        $stmt->bind_param( "s", $uid); 
+        
+        if(!$stmt->execute()){
+            
+            return false;
+            
+        }else{            
+            
+            $stmt->bind_result($id);
+            
+            while ($stmt->fetch()) {
+                $result[] = $id;
+
+            }            
+            
+            $stmt->close();  
+            return $result;                      
+        }          
+    }
+
+
+    public function getContact($uid,$cid){
+        $connection = $this->connection;      
+
+        $stmt = $connection->prepare(
+          "SELECT contacts.id, contacts.lname, contacts.fname, contacts.mail, contact_phones.number
+           FROM contacts 
+           LEFT JOIN contact_phones ON contacts.id = contact_phones.contact_id
+           WHERE contacts.user_id = ? AND contacts.id = ?
+           ");
+
+
+        $stmt->bind_param( "ss", $uid, $cid); 
+        if(!$stmt->execute()){
+            return false;
+        }else{
+            
+            $stmt->bind_result($id, $lname, $fname, $mail, $number);
+
+            while ($stmt->fetch()) {
+                $result[] = array(
+                    'id' => $id,
+                    'lname' => $lname,
+                    'fname' => $fname,
+                    'mail' => $mail,
+                    'number' => $number,
+                );
+
+            }
+            
+            $stmt->close();  
+            return $result;
+                      
+        }          
+    }     
+    
 }
 ?>

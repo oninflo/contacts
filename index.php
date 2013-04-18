@@ -18,7 +18,6 @@ if (!isset($_SESSION['user_id'])) {
 
     $dbase = new Db($config);
     $auth = new Auth($dbase);    
-
     $logged_in = $auth->checkUser();
 	
     if(empty($logged_in)){
@@ -28,39 +27,103 @@ if (!isset($_SESSION['user_id'])) {
 
     } else {
         
+        $contacts = new Contact($dbase);
+        
         if($_GET['page']=='list' || $_GET['page']=='' || !isset($_GET['page'])){
-           
-            $contacts = new Contact($dbase);
-            $datas = $contacts->listContact($_SESSION['user_id']);
+                      
+                $datas = $contacts->listContact($_SESSION['user_id']);
 
-            $toView = array(
-                'datas' => $datas,
-            );
-            $view = new View('index',$toView);
-            echo $view;          
+                $toView = array(
+                    'datas' => $datas,
+                );
+                $view = new View('index',$toView);
+                echo $view;          
             
         }elseif($_GET['page']=='add'){
             
-            $toView = array(
-                'variable' => 'nothing to write');
-            if($_POST){
-                $toView = array('variable' => 'something to write');
-            }
+                $msg = '';
+                if($_POST){
+                    $datas['lname'] = $_POST['lname'];
+                    $datas['fname'] = $_POST['fname'];
+                    $datas['mail'] = $_POST['mail'];
+                    $datas['numbers'] = $_POST['phone'];
+                    if($contacts->addContact($datas)){
+                        $msg = 'A beírás sikeres volt!';
+                    }else{
+                        $msg = 'A beírás nem volt sikeres!';
+                    }                
+                }
+                $toView = array(
+                    'numbers' => $datas['numbers'],
+                    'msg' => $msg,
+                    );
+                $view = new View('add',$toView);
+                echo $view;
             
-            $view = new View('add',$toView);
-            echo $view;              
+        }elseif($_GET['page']=='add_phone'){
+            
+                $msg = '';
+                if($_POST){
+                    $datas['phone'] = $_POST['phone'];
+
+                    if($contacts->addNumbers($datas)){
+                        $msg = 'A beírás sikeres volt!';
+                    }else{
+                        $msg = 'A beírás nem volt sikeres!';
+                    }                
+                }
+                $toView = array(
+                    'numbers' => $datas['numbers'],
+                    'msg' => $msg,
+                    );
+                $view = new View('add_phone',$toView);
+                echo $view;             
             
         }elseif($_GET['page']=='edit'){
             
-            $view = new View('edit',$toView);
-            echo $view;              
+                $msg = '';
+
+                if($_POST){
+                    $datas['lname'] = $_POST['lname'];
+                    $datas['fname'] = $_POST['fname'];
+                    $datas['mail'] = $_POST['mail'];
+                    $datas['numbers'] = $_POST['phone'];
+                    if($contacts->editContact($datas)){
+                        $msg = 'A módosítás sikeres volt!';
+                    }else{
+                        $msg = 'A módosítás nem volt sikeres!';
+                    }
+                }
+
+                $datas = $contacts->listContact($_SESSION['user_id'],$_GET['id']);
+
+                $toView = array(
+                    'values' => $datas,
+                    'msg' => $msg,
+                );
+
+                $view = new View('edit',$toView);
+                echo $view;            
             
         }elseif($_GET['page']=='delete'){
             
-            $view = new View('delete',$toView);
-            echo $view;             
-            
+                if($_GET['confirmation']=='yes'){
+                    if($contacts->removeContact($_SESSION['user_id'],$_GET['id'])){
+                        $datas['msg'] = 'A törlés sikeres volt!';
+                    }
+                }else{
+                    $datas = $contacts->listContact($_SESSION['user_id'],$_GET['id']);
+                }           
+
+                $toView = array(
+                    'datas' => $datas,
+                );
+
+                $view = new View('delete',$toView);
+                echo $view;
+
         }
+        
 
     }
 }
