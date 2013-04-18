@@ -38,6 +38,7 @@ td{
 td.ajax{
     margin-left: 50px;
     padding-left: 50px;
+    border: 1px solid gray;
 }
 
 input{
