@@ -1,17 +1,17 @@
 <script type="text/javascript">
-function getAddForm(){
-   event.preventDefault();
-//   $('td.ajax').toggle("slow");
-   $.ajax({
-      type: "GET",
-      url: "some.php",
-      data: { name: "John", location: "Boston" },
-      success: function(data){
-        $('td.ajax').toggle("slow");
-        $('td.ajax').html(data);
-     }
-   });   
-}    
+//function getAddForm(){
+//   event.preventDefault();
+////   $('td.ajax').toggle("slow");
+//   $.ajax({
+//      type: "GET",
+//      url: "some.php",
+//      data: { name: "John", location: "Boston" },
+//      success: function(data){
+//        $('td.ajax').toggle("slow");
+//        $('td.ajax').html(data);
+//     }
+//   });   
+//}    
 
 $(document).ready(function() {
     
