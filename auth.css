@@ -1,0 +1,104 @@
+/*fieldset{
+    margin:  100px auto auto ;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 10px 10px 15px #888888;
+}
+
+fieldset legend{
+    text-align: left;
+}*/
+
+fieldset.login{
+    width: 300px;
+}
+
+/*a{
+    padding: 3px;
+    font-size: 10pt;
+    color: darkgreen;
+    text-decoration: none;
+}*/
+
+a.login{
+    font-size: 10pt;
+}
+
+table.register{
+    margin: auto auto 200px;
+    width: 300px;
+    border-collapse: separate;
+    border-radius: 10px;
+
+    /* Safari 4-5, Chrome 1-9 */
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1a82f7), to(white));
+
+    /* Safari 5.1, Chrome 10+ */
+    background: -webkit-linear-gradient(top, white, #1a82f7);
+
+    /* Firefox 3.6+ */
+    background: -moz-linear-gradient(top,white, #1a82f7);
+
+    /* IE 10 */
+    background: -ms-linear-gradient(top, white, #1a82f7);
+
+    /* Opera 11.10+ */
+    background: -o-linear-gradient(top, white, #1a82f7);
+}
+
+table.register tr:nth-child(even) {
+    background: none;
+}
+
+table.register td:first-child{
+    text-align: right;
+    border: 0px;    
+}
+
+table.register td:last-child{
+    border: 0px;
+}
+
+table.register td.head{
+    color: white;
+    font-size: 14pt;
+    text-align: left;
+    /* Safari 4-5, Chrome 1-9 */
+    background: -webkit-gradient(radial, 80% 20%, 0, 80% 40%, 100, from(white), to(#636161));
+
+    /* Safari 5.1+, Chrome 10+ */
+    background: -webkit-radial-gradient(70% 30%, closest-corner, white, #636161);
+
+    /* Firefox 3.6+ */
+    background: -moz-radial-gradient(80% 20%, closest-corner, white, #636161);
+
+    /* IE 10 */
+    background: -ms-radial-gradient(80% 20%, closest-corner, white, #636161);
+      
+    border-radius: 10px;
+}
+
+/*input{
+    padding: 5px;
+    border: 1px solid #96a641;
+    border-radius:10px;
+}
+
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus{
+  color: #000;
+  border: 0px;
+}*/
+
+input[type=submit]{
+    background: #a4b357;
+    background: -moz-linear-gradient(top, white 0%, #00FA3A 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a4b357), color-stop(100%,#00FA3A));
+    background: -webkit-linear-gradient(top, white 0%,#00FA3A 100%);
+    background: -o-linear-gradient(top, white 0%,#00FA3A 100%);
+    background: -ms-linear-gradient(top, white 0%,#00FA3A 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='white', endColorstr='#00FA3A',GradientType=0 );
+    background: linear-gradient(top, white 0%,#00FA3A 100%);
+    margin-top: 10px;
+    padding: 5px;
+    border: 1px solid lightblue;
+}

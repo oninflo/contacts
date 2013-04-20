@@ -3,6 +3,6 @@ return array(
   'host' => 'localhost',
   'user' => 'root',
   'password' => '',
-  'dbname' => 'exam_lgk'
+  'dbname' => 'exam_klg'
 );
 ?>

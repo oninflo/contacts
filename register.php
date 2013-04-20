@@ -59,12 +59,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 ?>
-<a href="login.php">Bejelentkezés</a>
-<h1>Regisztráció</h1>
-<br />
-<br />
+
 <form name="register" action="register.php" method="post"><br />
-    <table cellpadding="0" cellspacing="0" border="0">
+    <table class="register">
+        <tr>
+            <td class="head" colspan="2">Regisztráció</td>
+          
+        </tr>
         <tr>
             <td class="form-input-name">Becenév</td>
             <td class="input"><input type="text" name="name" placeholder="Beceneved írd ide..." autocomplete="off" required="required"  value="<?= $name ?>" /></td>
