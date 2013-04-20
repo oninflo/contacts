@@ -1,5 +1,5 @@
 <?php
-require_once 'header.php';
+require_once '_header.php';
 
 function __autoload($class_name) {
     include 'classes/'.$class_name . '.php';
@@ -91,5 +91,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <?php
-require_once 'footer.php';
+require_once '_footer.php';
 ?>

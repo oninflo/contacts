@@ -4,14 +4,28 @@
 ////   $('td.ajax').toggle("slow");
 //   $.ajax({
 //      type: "GET",
-//      url: "some.php",
-//      data: { name: "John", location: "Boston" },
+//      url: "index.php",
+//      data: { page: "add" },
 //      success: function(data){
 //        $('td.ajax').toggle("slow");
-//        $('td.ajax').html(data);
+//        $('body').html(data);
 //     }
 //   });   
-//}    
+//}
+//
+//function sendAddForm(){
+//   event.preventDefault();
+////   $('td.ajax').toggle("slow");
+//   $.ajax({
+//      type: "POST",
+//      url: "index.php?page=add",
+//      data: $("#addForm").serialize(),
+//      success: function(data){
+//        $('td.ajax').toggle("slow");
+//        $('body').html(data);
+//     }
+//   });   
+//}
 
 $(document).ready(function() {
     
@@ -19,41 +33,51 @@ $(document).ready(function() {
    $('td.ajax').hide();
  });    
 </script>
-<a href="logout.php">Kijelentkezés(<?php echo $_SESSION['uname']; ?>)</a>
-<h1>Főoldal</h1>
-<br />            
-<br />
-<a href="index.php?page=add" id="add" name="add" onClick="getAddForm()">Új névjegy hozzáadása</a>
+
+<div>
+    <ul>
+        <li><a href="index.php?page=add">Add</a></li>
+        <li><a href="logout.php">Sign Out</a></li>
+    </ul>
 
 <?php 
-function decorate($str){
-    return '<font>'.$str.':&nbsp;&nbsp;</font>';
-}
 echo '<table>';
-echo '<tr>';
-echo '<td>';
+echo '<thead><tr>
+        <td>
+        Name(
+        <a href="index.php?orderBy=name&orderType=ASC">Asc</a>
+        <a href="index.php?orderBy=name&orderType=DESC">Desc</a>
+        )
+        </td>
+        <td>E-mail(
+         <a href="index.php?orderBy=mail&orderType=ASC">Asc</a>
+        <a href="index.php?orderBy=mail&orderType=DESC">Desc</a>       
+        )
+        </td>
+        <td>Phone
+        </td>
+        <td>Action
+        </td>
+      </tr></thead>';
+echo '<tbody>';
+
 foreach ($datas as $data){
-    
-    echo '<div>';    
-    echo decorate('Vezetéknév').$data['lname'].'<br />';
-    echo decorate('Keresztnév').$data['fname'].'<br />';
-    echo decorate('E-mail').$data['mail'].'<br />';
-    echo decorate('Telefonszámok').'<br />';
-    
+    echo '<tr>';
+    echo '<td>'.$data['lname'].' '.$data['fname'].'</td>';  
+    echo '<td>'.$data['mail'].'</td>';  
+    echo '<td>';
     foreach ($data['numbers'] as $numbers){
-        echo $numbers.'<br />';
+        echo $numbers.' ';
     }
-    
-    echo '<br />';
+    echo '</td>';
+    echo '<td>';
     echo '<a href="index.php?page=edit&id='.$data['id'].'" class="menu">Szerkesztés</a>&nbsp;&nbsp;';
     echo '<a href="index.php?page=delete&id='.$data['id'].'" class="menu">Törlés</a>';    
-    echo '</div>';
+    echo '</td>';
+    echo '</tr>';
 }
-echo '</td>';
+echo '</tbody>';
 
 ?>
-<td class="ajax">
-    ef
-</td>
-</tr>
 </table>
+</div>

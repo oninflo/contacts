@@ -168,7 +168,12 @@ class Db{
         return false;        
     }
     
-    public function addNumbers($id, $num){
+    public function getStrippedNumbers($number){
+        $blackList = array("+","-","/","\\"," ","_");
+        return str_replace($blackList,"",$number);
+    }
+
+        public function addNumbers($id, $num){
         $myContactArr = $this->getOwnContactIds($_SESSION['user_id']);
         if(!in_array($id, $myContactArr)){
             return false;
@@ -179,7 +184,7 @@ class Db{
                 number) 
                 VALUES (?,?);";
         $stmt = $connection->prepare($sql);
-        $stmt->bind_param( "ss", $id, $num); 
+        $stmt->bind_param( "ss", $id, $this->getStrippedNumbers($num)); 
         if($stmt->execute()){
             $stmt->close();    
             return true;
@@ -239,16 +244,23 @@ class Db{
         }          
     }
     
-    public function listContact($uid){
-        $connection = $this->connection;      
+    public function listContact($uid, $by, $type){
+        $connection = $this->connection;     
+        
+        if($by=='name'){$by2="contacts.fname";}
+        elseif($by=='mail'){$by2="contacts.mail";}
+        else{$by2='name';}
+        
+        $type = ($type!='ASC' AND $type!='DESC')?'ASC':$type;
 
-        $stmt = $connection->prepare(
-          "SELECT contacts.id, contacts.lname, contacts.fname, contacts.mail, contact_phones.number
+        $query = "SELECT contacts.id, contacts.lname, contacts.fname, contacts.mail, contact_phones.number
            FROM contacts 
            LEFT JOIN contact_phones ON contacts.id = contact_phones.contact_id
            WHERE contacts.user_id = ?
-           ");
-
+           ORDER BY ".$by2." ".$type;
+        $stmt = $connection->prepare($query);
+               
+        
         $stmt->bind_param( "s", $uid); 
         if(!$stmt->execute()){
             return false;

@@ -6,6 +6,7 @@ if($_GET['page']=='add'){
     $mail = '';
     $numbers = array('','','');
     $numberCount = 2 ;
+    $title = 'New Contact';
     $action = $_GET['page'];
     $submit = 'Hozzáad!';
     
@@ -15,57 +16,45 @@ if($_GET['page']=='add'){
     $numbers = $values[$_GET['id']]['numbers'];
     
     $numberCount = count($numbers);
+    $title = $fname.'&nbsp;'.$lname ;
     $action = $_GET['page'].'&id='.$_GET['id'];
     $submit = 'Módosít!';
     
 }
 
 ?>
-<form name="login" action="index.php?page=<?= $action ?>" method="post">
+<form id="addForm" name="addForm" action="index.php?page=<?= $action ?>" method="post">
 <input type="hidden" name="type" value="add">
-    <table cellpadding="0" cellspacing="0" border="0">
-        <tr>
-            <td class="form-input-name">Vezetéknév</td>
-            <td class="input"><input type="text" name="lname" placeholder="Vezetéknév helye" autocomplete="on" required="required"  value="<?= $lname ?>" /></td>
+    <fieldset class="edit">
+    <legend><?= $title ?></legend>
+    <table class="form">
+        <tr class="form">
+            <td class="form-input-name">
+                First Name<br />
+                <input type="text" name="fname" placeholder="Keresztnév helye..." autocomplete="on" required="required"  value="<?= $fname ?>" />
+            </td>
+            <td class="input">
+                Last Name<br />
+                <input type="text" name="lname" placeholder="Vezetéknév helye..." autocomplete="on" required="required"  value="<?= $lname ?>" />
+            </td>
         </tr>
-        <tr>
-            <td class="form-input-name">Keresztnév</td>
-            <td class="input"><input type="text" name="fname" placeholder="Keresztnév elye..." autocomplete="on" required="required"  value="<?= $fname ?>" /></td>
-        </tr>
-        <tr>
-            <td class="form-input-name">E-mail</td>
-            <td class="input"><input type="text" name="mail" placeholder="Email helye..." autocomplete="on" required="required"  value="<?= $mail ?>" /></td>
-        </tr>
-        
+    </table>
+
+    &nbsp;E-mail<br />
+    &nbsp;<input type="text" name="mail" placeholder="Email helye..." autocomplete="on" required="required"  value="<?= $mail ?>" /><br />
+
+    &nbsp;Phone<br />
+    &nbsp;<textarea name="phone" rows="5" cols="40" placeholder="Telefonszámok helye..." autocomplete="on" >
 <?php
 $i = 0;
 foreach($numbers as $number){
-
-?>
-        
-        <tr>
-            <td class="form-input-name">Telefon <?= $i+1 ?></td>
-            <td class="input"><input type="text" name="phone[]" placeholder="Telefon <?= $i+1 ?>..." autocomplete="on" value="<?= $number ?>" /></td>
-        </tr>
-        
-<?php    
+    echo $number."\n";
     $i++;
 }
-if($_GET['page']=='edit'){
 ?>
-        <tr>
-            <td class="form-input-name">
-                <a href="index.php?page=add_phone&id=<?= $_GET['id'] ?>" style="font-size: 10pt;">Új telefonszám<br />hozzáadása</a>
-            </td>
-            <td class="input"></td>
-        </tr>
-        
- <?php
-}
-?>
-        <tr>
-            <td class="form-input-name"></td>
-            <td><input type="submit" value="<?= $submit ?>" /></td>
-        </tr>
-    </table>
-</form>
+
+    </textarea><br />
+    &nbsp;<input type="submit" value="<?= $submit ?>" />
+    <a href="index.php?page=delete&id=<?= $id ?>" class="submit">Törlés</a>
+
+ 

@@ -1,39 +1,86 @@
 body{
     text-align: left;
     font-family: Arial, Helvetica;
+    color: #696969;
 }
 
 div{
-    width: 300px;
-    margin-top: 5px;
+    width: 770px;
+    margin: 5px auto auto;
     padding: 5px;
-    background: #a4b357;
+/*    background: #a4b357;
     background: -moz-linear-gradient(top, #D9FFFC 0%, #FFFFFF 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9FFFC), color-stop(100%,#7FFFFFF));
     background: -webkit-linear-gradient(top, #D9FFFC 0%,#FFFFFF 100%);
     background: -o-linear-gradient(top, #D9FFFC 0%,#FFFFFF 100%);
     background: -ms-linear-gradient(top, #D9FFFC 0%,#FFFFFF 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4b357', endColorstr='#75890c',GradientType=0 );
-    background: linear-gradient(top, #a4b357 0%,#FFFFFF 100%);
-    border: 1px solid green;
+    background: linear-gradient(top, #a4b357 0%,#FFFFFF 100%);*/
+    border: 0px;
     border-radius:10px;
 }
 
 ul{
-    border-radius:10px;
+    width: 100px;
+    padding: 3px;
+    border: 1px solid gray;
+    border-radius:5px;
+    box-shadow: 10px 10px 5px #888888;
 }
 
 li{
     display: inline;
 }
+li:last-child{
+    border-left: 1px solid green;
+}
+
+fieldset{
+    margin:  100px auto auto ;
+    text-align: center;
+    border-radius: 10px;
+}
+
+fieldset legend{
+    text-align: left;
+}
+
+fieldset.login{
+    width: 300px;
+}
+
+fieldset.edit{
+    text-align: left;
+    width: 400px;
+}
 
 table{
+    border: 1px solid darkgrey;
+    border-collapse: collapse;
+    vertical-align: text-top; 
+    color: #696969;
+}
+
+table.form, table.form td{
     border: 0px;
 }
 
-td{
-    text-align: left;
+tr.form{
+    background-color: none;
 }
+
+td{
+    width: 190px;
+    border: 1px solid darkgray;
+    text-align: left;
+    padding: 5px;
+}
+
+thead td{
+    background-color: darkgray;
+}
+
+tbody tr:nth-child(even) {background: #CCC}
 
 td.ajax{
     margin-left: 50px;
@@ -66,7 +113,25 @@ input[type=submit]{
     border: 1px solid lightblue;
 }
 
+a.submit{
+    color: black;
+    background: #a4b357;
+    background: -moz-linear-gradient(top, #a4b357 0%, #75890c 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a4b357), color-stop(100%,#75890c));
+    background: -webkit-linear-gradient(top, #a4b357 0%,#75890c 100%);
+    background: -o-linear-gradient(top, #a4b357 0%,#75890c 100%);
+    background: -ms-linear-gradient(top, #a4b357 0%,#75890c 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4b357', endColorstr='#75890c',GradientType=0 );
+    background: linear-gradient(top, #a4b357 0%,#75890c 100%);
+    margin-top: 10px;
+    padding: 5px;
+    border: 1px solid lightblue;
+    border-radius: 10px;
+}
+
 a{
+    padding: 3px;
+    font-size: 10pt;
     color: darkgreen;
     text-decoration: none;
 }
@@ -77,6 +142,24 @@ font{
 
 a.menu{
     color: #919191;
-    font-size: 12pt;
     text-decoration: none;
+}
+
+a.login{
+    font-size: 10pt;
+}
+
+span.name{
+    width: 250px;
+}
+
+span.other{
+    width: 600px;
+}
+
+textarea{
+    color: gray;
+    padding: 5px;
+    border: 1px solid green;
+    border-radius: 10px;
 }

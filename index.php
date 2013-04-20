@@ -29,9 +29,12 @@ if (!isset($_SESSION['user_id'])) {
         
         $contacts = new Contact($dbase);
         
-        if($_GET['page']=='list' || $_GET['page']=='' || !isset($_GET['page'])){
-                      
-                $datas = $contacts->listContact($_SESSION['user_id']);
+        if(!isset($_GET['page'])){
+                
+                $orderBy = (isset($_GET['orderBy']))?$_GET['orderBy']:'name';
+                $orderType = (isset($_GET['orderType']))?$_GET['orderType']:'ASC';
+                
+                $datas = $contacts->listContact($_SESSION['user_id'], null, $orderBy, $orderType);
 
                 $toView = array(
                     'datas' => $datas,
@@ -46,12 +49,10 @@ if (!isset($_SESSION['user_id'])) {
                     $datas['lname'] = $_POST['lname'];
                     $datas['fname'] = $_POST['fname'];
                     $datas['mail'] = $_POST['mail'];
-                    $datas['numbers'] = $_POST['phone'];
+                    $datas['numbers'] = explode("\n",$_POST['phone']);
                     if($contacts->addContact($datas)){
-                        $msg = 'A beírás sikeres volt!';
-                    }else{
-                        $msg = 'A beírás nem volt sikeres!';
-                    }                
+                        header('Location: index.php');
+                    }              
                 }
                 $toView = array(
                     'numbers' => $datas['numbers'],
@@ -67,6 +68,7 @@ if (!isset($_SESSION['user_id'])) {
                     $datas['phone'] = $_POST['phone'];
 
                     if($contacts->addNumbers($datas)){
+                        header('Location: index.php');
                         $msg = 'A beírás sikeres volt!';
                     }else{
                         $msg = 'A beírás nem volt sikeres!';
@@ -87,11 +89,9 @@ if (!isset($_SESSION['user_id'])) {
                     $datas['lname'] = $_POST['lname'];
                     $datas['fname'] = $_POST['fname'];
                     $datas['mail'] = $_POST['mail'];
-                    $datas['numbers'] = $_POST['phone'];
+                    $datas['numbers'] = explode("\n",trim($_POST['phone']));
                     if($contacts->editContact($datas)){
-                        $msg = 'A módosítás sikeres volt!';
-                    }else{
-                        $msg = 'A módosítás nem volt sikeres!';
+                        header('Location: index.php');
                     }
                 }
 
@@ -103,7 +103,7 @@ if (!isset($_SESSION['user_id'])) {
                 );
 
                 $view = new View('edit',$toView);
-                echo $view;            
+                echo $view;    
             
         }elseif($_GET['page']=='delete'){
             

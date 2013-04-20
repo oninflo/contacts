@@ -8,9 +8,9 @@ class Contact {
         $this->DbAccess = $db;
     }
 
-    public function listContact($uid,$cid = null){
+    public function listContact($uid, $cid = null, $by, $type){
         if($cid == null){
-            $contacts = $this->DbAccess->listContact($uid);
+            $contacts = $this->DbAccess->listContact($uid, $by, $type);
         }else{
             $contacts = $this->DbAccess->getContact($uid,$cid);
         }
