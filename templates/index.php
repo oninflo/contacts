@@ -1,38 +1,3 @@
-<script type="text/javascript">
-//function getAddForm(){
-//   event.preventDefault();
-////   $('td.ajax').toggle("slow");
-//   $.ajax({
-//      type: "GET",
-//      url: "index.php",
-//      data: { page: "add" },
-//      success: function(data){
-//        $('td.ajax').toggle("slow");
-//        $('body').html(data);
-//     }
-//   });   
-//}
-//
-//function sendAddForm(){
-//   event.preventDefault();
-////   $('td.ajax').toggle("slow");
-//   $.ajax({
-//      type: "POST",
-//      url: "index.php?page=add",
-//      data: $("#addForm").serialize(),
-//      success: function(data){
-//        $('td.ajax').toggle("slow");
-//        $('body').html(data);
-//     }
-//   });   
-//}
-
-$(document).ready(function() {
-    
-   $('td.ajax').css('display','hide');
-   $('td.ajax').hide();
- });    
-</script>
 
 <div>
     <ul>

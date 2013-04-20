@@ -61,26 +61,6 @@ if (!isset($_SESSION['user_id'])) {
                 $view = new View('add',$toView);
                 echo $view;
             
-        }elseif($_GET['page']=='add_phone'){
-            
-                $msg = '';
-                if($_POST){
-                    $datas['phone'] = $_POST['phone'];
-
-                    if($contacts->addNumbers($datas)){
-                        header('Location: index.php');
-                        $msg = 'A beírás sikeres volt!';
-                    }else{
-                        $msg = 'A beírás nem volt sikeres!';
-                    }                
-                }
-                $toView = array(
-                    'numbers' => $datas['numbers'],
-                    'msg' => $msg,
-                    );
-                $view = new View('add_phone',$toView);
-                echo $view;             
-            
         }elseif($_GET['page']=='edit'){
             
                 $msg = '';
