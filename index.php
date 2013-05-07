@@ -50,7 +50,7 @@ if (!isset($_SESSION['user_id'])) {
                     $datas['fname'] = $_POST['fname'];
                     $datas['mail'] = $_POST['mail'];
                     $datas['numbers'] = explode("\n",$_POST['phone']);
-                    if($contacts->addContact($datas)){
+                    if($contacts->saveContact($datas,$_GET['page'])){
                         header('Location: index.php');
                     }              
                 }
@@ -70,7 +70,7 @@ if (!isset($_SESSION['user_id'])) {
                     $datas['fname'] = $_POST['fname'];
                     $datas['mail'] = $_POST['mail'];
                     $datas['numbers'] = explode("\n",trim($_POST['phone']));
-                    if($contacts->editContact($datas)){
+                    if($contacts->saveContact($datas,$_GET['page'])){
                         header('Location: index.php');
                     }
                 }

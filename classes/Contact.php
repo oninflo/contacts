@@ -32,21 +32,17 @@ class Contact {
         return $datas;
     }    
     
-    public function addContact($datas){
+    public function saveContact($datas, $type){
         foreach ($datas as $key=>$value){
             $datas[$key] = $this->normalize($value);
         }
-       return $this->DbAccess->addContact($datas['lname'], $datas['fname'], $datas['mail'], $datas['numbers']);
-    }
-    
-    
-    public function editContact($datas){
-        foreach ($datas as $key=>$value){
-            $datas[$key] = $this->normalize($value);
+        if($type=="add"){
+            return $this->DbAccess->addContact($datas['lname'], $datas['fname'], $datas['mail'], $datas['numbers']);
+        }  elseif($type=="edit") {
+            return $this->DbAccess->editContact($datas['lname'], $datas['fname'], $datas['mail'], $datas['numbers'], $_GET['id']);
         }
-        return $this->DbAccess->editContact($datas['lname'], $datas['fname'], $datas['mail'], $datas['numbers'], $_GET['id']);
-    }
-
+        
+    }    
 
     public function removeContact($uid,$cid){
        $myContacts = $this->DbAccess->getOwnContactIds($uid);
