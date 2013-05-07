@@ -168,12 +168,8 @@ class Db{
         return false;        
     }
     
-    public function getStrippedNumbers($number){
-        $blackList = array("+","-","/","\\"," ","_");
-        return str_replace($blackList,"",$number);
-    }
 
-        public function addNumbers($id, $num){
+    public function addNumbers($id, $num){
         $myContactArr = $this->getOwnContactIds($_SESSION['user_id']);
         if(!in_array($id, $myContactArr)){
             return false;
@@ -184,7 +180,8 @@ class Db{
                 number) 
                 VALUES (?,?);";
         $stmt = $connection->prepare($sql);
-        $stmt->bind_param( "ss", $id, $this->getStrippedNumbers($num)); 
+        $num = preg_replace("/[^0-9]/","",$num);
+        $stmt->bind_param( "ss", $id, $num); 
         if($stmt->execute()){
             $stmt->close();    
             return true;
@@ -221,9 +218,7 @@ class Db{
 
                 $this->delNumbers($cid);
                 foreach ($numbers as $number){
-                    if($number!=''){
-                       $this->addNumbers($cid, $number); 
-                    }                    
+                       $this->addNumbers($cid, $number);                                         
                 }                
             
             return true;

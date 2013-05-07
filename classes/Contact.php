@@ -7,6 +7,11 @@ class Contact {
     {
         $this->DbAccess = $db;
     }
+    
+    protected function normalize($value){
+        $patterns = array("\'","\"","<",">","+","-","/","\\"," ","_");
+        return $value = str_replace($patterns, "", $value);
+    }
 
     public function listContact($uid, $cid = null, $by, $type){
         if($cid == null){
@@ -28,14 +33,17 @@ class Contact {
     }    
     
     public function addContact($datas){
+        foreach ($datas as $key=>$value){
+            $datas[$key] = $this->normalize($value);
+        }
        return $this->DbAccess->addContact($datas['lname'], $datas['fname'], $datas['mail'], $datas['numbers']);
     }
     
-    public function addNumbers($datas){
-        return $this->DbAccess->addNumbers($_GET['id'],$datas['phone']);
-    }
     
     public function editContact($datas){
+        foreach ($datas as $key=>$value){
+            $datas[$key] = $this->normalize($value);
+        }
         return $this->DbAccess->editContact($datas['lname'], $datas['fname'], $datas['mail'], $datas['numbers'], $_GET['id']);
     }
 
